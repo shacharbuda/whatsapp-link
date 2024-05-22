@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Validation</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="phoneForm">
+        <label for="phone">Enter your phone number:</label>
+        <input type="tel" id="phone" name="phone" pattern="^0\d{9,14}$" required>
+        <button type="button" onclick="validatePhone()">Submit</button>
+    </form>
+    <div id="waLink" class="hidden">
+        <label for="waPhone">WhatsApp Link:</label>
+        <a href="#" id="waPhoneLink"></a>
+    </div>
+
+    <script>
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            const waLinkDiv = document.getElementById('waLink');
+            const waPhoneLink = document.getElementById('waPhoneLink');
+
+            const phoneNumber = phoneInput.value;
+            const phonePattern = /^0\d{9,14}$/;
+
+            if (phonePattern.test(phoneNumber)) {
+                const formattedNumber = `972${phoneNumber.slice(1)}`;
+                const waLink = `http://wa.me/${formattedNumber}`;
+                waPhoneLink.href = waLink;
+                waPhoneLink.textContent = waLink;
+                waLinkDiv.classList.remove('hidden');
+            } else {
+                waLinkDiv.classList.add('hidden');
+                alert('Please enter a valid phone number.');
+            }
+        }
+    </script>
+</body>
+</html>
