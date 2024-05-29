@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Number Validation</title>
+    <title>Number to WhatsApp link</title>
     <style>
         .hidden {
             display: none;
@@ -13,15 +13,16 @@
 <body>
     <form id="phoneForm">
         <label for="phone">Enter your phone number:</label>
-        <input type="tel" id="phone" name="phone" pattern="^0\d{9,14}$" required>
+        <input type="tel" id="phone" name="phone" pattern="^0\d{9}$" required>
         <button type="button" onclick="validatePhone()">Submit</button>
     </form>
     <div id="waLink" class="hidden">
-        <label for="waPhone">WhatsApp Link:</label>
+        <label for="waPhone">Redirecting to WhatsApp Link:</label>
         <a href="#" id="waPhoneLink"></a>
+        <label for="waPhone">...</label>
+        <br><br>
+        <img src="feller.jpg" alt="Image" width="500">
     </div>
-    <br><br>
-    <img src="feller.jpg" alt="Image" width="500">
 
     <script>
         function validatePhone() {
@@ -30,7 +31,7 @@
             const waPhoneLink = document.getElementById('waPhoneLink');
 
             const phoneNumber = phoneInput.value;
-            const phonePattern = /^0\d{9,14}$/;
+            const phonePattern = /^0\d{9}$/;
 
             if (phonePattern.test(phoneNumber)) {
                 const formattedNumber = `972${phoneNumber.slice(1)}`;
@@ -38,6 +39,7 @@
                 waPhoneLink.href = waLink;
                 waPhoneLink.textContent = waLink;
                 waLinkDiv.classList.remove('hidden');
+                window.location = waLink;
             } else {
                 waLinkDiv.classList.add('hidden');
                 alert('Please enter a valid phone number.');
