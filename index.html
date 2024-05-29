@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number to WhatsApp link</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .hidden {
             display: none;
@@ -11,24 +13,35 @@
     </style>
 </head>
 <body>
-    <form id="phoneForm">
-        <label for="phone">Enter your phone number:</label>
-        <input type="tel" id="phone" name="phone" pattern="^0\d{9}$" required>
-        <button type="button" onclick="validatePhone()">Submit</button>
-    </form>
-    <div id="waLink" class="hidden">
-        <label for="waPhone">Redirecting to WhatsApp Link:</label>
-        <a href="#" id="waPhoneLink"></a>
-        <label for="waPhone">...</label>
-        <br><br>
-        <img src="feller.jpg" alt="Image" width="500">
+    <div class="row pt-5 px-5">
+        <form id="phoneForm" class="form-group">
+            <div class="form-group">
+                <label for="phone">Enter your phone number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" pattern="^0\d{9}$" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="validatePhone()">Submit</button>
+        </form>
+    </div>
+    <div class="row px-5">
+        <div id="waLink" class="hidden">
+            <div class="container mt-5">
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="font-italic sr-only">Redirecting...</span>
+                    </div>
+                    <span class="font-italic ml-2">Redirecting...</span>
+                </div>
+            </div>
+            <a class="hidden" href="#" id="waPhoneLink"></a>
+            <label class="hidden" id="waPhone">...</label>
+            <br><br>
+            <img src="feller.jpg" alt="Image" width="300">
+        </div>
     </div>
 
     <script>
         function validatePhone() {
             const phoneInput = document.getElementById('phone');
-            const waLinkDiv = document.getElementById('waLink');
-            const waPhoneLink = document.getElementById('waPhoneLink');
 
             const phoneNumber = phoneInput.value;
             const phonePattern = /^0\d{9}$/;
@@ -36,15 +49,20 @@
             if (phonePattern.test(phoneNumber)) {
                 const formattedNumber = `972${phoneNumber.slice(1)}`;
                 const waLink = `http://wa.me/${formattedNumber}`;
-                waPhoneLink.href = waLink;
-                waPhoneLink.textContent = waLink;
                 waLinkDiv.classList.remove('hidden');
-                window.location = waLink;
+                setTimeout(() => {
+                    window.location = waLink;
+                }, 600)
             } else {
                 waLinkDiv.classList.add('hidden');
                 alert('Please enter a valid phone number.');
             }
         }
     </script>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
